@@ -1,9 +1,9 @@
 {
 	"metadata" : {
-		"sname" : "Simulation ph1 test survey",
-		"surl"  : "https://epics.vbi.vt.edu/wisdm_analytics/ph1Test/",
+		"sname" : "<survey_name>",
+		"surl"  : "<survey_url>",
 		"sid"   : "",
-		"sdb"	: "wisdmdev"
+		"sdb"	: "<survey_db_instance>"
 	},
 
 	"sdata"	: {
