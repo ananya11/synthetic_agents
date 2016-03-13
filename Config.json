@@ -1,0 +1,124 @@
+{
+	"metadata" : {
+		"sname" : "Simulation ph1 test survey",
+		"surl"  : "https://epics.vbi.vt.edu/wisdm_analytics/ph1Test/",
+		"sid"   : "",
+		"sdb"	: "wisdmdev"
+	},
+
+	"sdata"	: {
+
+		"preamble"	: true,
+
+		"1"	:{
+			"demographic"	: true,
+			"mapped_ora_col": "agep",
+			"question_text"	: "what-your-age",
+			"question_type"	: "IntegerField",
+			"range"		: {"$ref" : "mapped_ora_col"},
+			"choices"	: null
+		},
+		
+		"2"	:{
+			"demographic"	: true,
+			"mapped_ora_col": "sex",
+			"question_text"	: "what-your-gender",
+			"question_type"	: "MultiChoiceRadioOption",
+			"range"		: null,
+			"choices"	: null
+		},
+		
+		"3"	:{
+			"demographic"	: true,
+			"mapped_ora_col": "hid",
+			"question_text"	: "what-your-city-homeresidence",
+			"question_type"	: "SingleLineTextField",
+			"range"		: null,
+			"choices"	: null
+		},
+		
+		"4"	:{
+			"demographic"	: true,
+			"mapped_ora_col": "home_zipcode",
+			"question_text"	: "what-zip-code-your-residencehome",
+			"question_type"	: "SingleLineTextField",
+			"range"		: {"$ref" : "mapped_ora_col"},
+			"choices"	: null
+		},
+
+		"5"    :{
+
+			"demographic"  : false,
+			"mapped_ora_col": null,
+			"question_text" : "are-you-sick",
+			"question_type" : "MultiChoiceRadioOption",
+			"range"		: null,
+			"choices"	: {
+				    "high":{
+					    "Yes":0.90,
+					    "No" :0.10
+				    },
+				    "medium":{
+					    "Yes":0.50,
+					    "No" :0.50
+				    },
+				    "low"   :{
+					    "Yes":0.10,
+					    "No" :0.90
+				    }
+			}		    
+		},
+
+		"6"	:{
+			"demographic"	: false,
+			"mapped_ora_col": null,
+			"question_text" : "did-you-get-vaccinated",
+			"question_type" : "MultiChoiceRadioOption",
+			"range"         : null,
+			"choices"       : {
+				"high":{
+					"Yes":0.10,
+					"No" :0.10
+				},
+				"medium":{
+					"Yes":0.50,
+					"No" :0.50
+				},
+				"low"	:{
+					"Yes":0.10,
+					"No" :0.90
+				}
+			}
+		},
+
+		"7"	:{
+			"demographic"	: false,
+			"mapped_ora_col": null,
+			"question_text"	: "did-you-fall-sick-last-three-months",
+			"question_type"	: "MultiChoiceCheckOption",
+			"range"		: null,
+			"choices"	:{
+				"high":{
+					"October" :0.20,
+					"November":0.50,
+					"December":0.70,
+					"I did not fall ill":0.10
+				},
+				"medium":{
+					"October" :0.50,
+					"November":0.50,
+					"December":0.50,
+					"I did not fall ill":0.50
+				},
+				"low":{
+					"October":0.20,
+					"November":0.20,
+					"December":0.20,
+					"I did not fall ill":0.90	
+				},
+				"default":"I did not fall ill"
+				
+			}
+		}
+	}	
+}
