@@ -1,124 +1,158 @@
 {
 	"metadata" : {
-		"sname" : "<survey_name>",
-		"surl"  : "<survey_url>",
+		"sname" : "USA Disease Prevalence October Fall 2015",
+		"surl"  : "https://epics.vbi.vt.edu/wisdm_analytics/usaDiseasePrevalence/",
 		"sid"   : "",
-		"sdb"	: "<survey_db_instance>"
+		"sdb"	: "wisdmdev"
 	},
 
 	"sdata"	: {
 
 		"preamble"	: true,
 
-		"1"	:{
+		"14"	:{
 			"demographic"	: true,
 			"mapped_ora_col": "agep",
-			"question_text"	: "what-your-age",
+			"question_text"	: "age-in-years",
 			"question_type"	: "IntegerField",
-			"range"		: {"$ref" : "mapped_ora_col"},
+			"range"		: null,
 			"choices"	: null
 		},
 		
-		"2"	:{
+		"15"	:{
 			"demographic"	: true,
 			"mapped_ora_col": "sex",
-			"question_text"	: "what-your-gender",
+			"question_text"	: "your-gender",
 			"question_type"	: "MultiChoiceRadioOption",
 			"range"		: null,
 			"choices"	: null
 		},
 		
-		"3"	:{
+		"16"	:{
 			"demographic"	: true,
-			"mapped_ora_col": "hid",
-			"question_text"	: "what-your-city-homeresidence",
-			"question_type"	: "SingleLineTextField",
+			"mapped_ora_col": "persons",
+			"question_text"	: "how-many-people-home",
+			"question_type"	: "IntegerField",
 			"range"		: null,
 			"choices"	: null
 		},
 		
-		"4"	:{
+		"17"	:{
 			"demographic"	: true,
-			"mapped_ora_col": "home_zipcode",
-			"question_text"	: "what-zip-code-your-residencehome",
-			"question_type"	: "SingleLineTextField",
+			"mapped_ora_col": "hincp",
+			"question_text"	: "household-yearly-income",
+			"question_type"	: "MultiChoiceRadioOption",
+			"range"		: null,
+			"choices"	: ["0 - 24,999", "25,000 - 74,999", "75,000 or more"]
+		},
+
+		"18"    :{
+
+			"demographic"  	: false,
+			"mapped_ora_col": null,
+			"question_text" : "when-were-you-sick",
+			"question_type" : "MultiChoiceCheckOption",
+			"range"		: null,
+			"choices"       : {
+				"high":{
+					"September - week 1":0.10,
+					"September - week 2":0.10,
+					"September - week 3":0.10,
+					"September - week 4":0.10,
+					"September - week 5 or October - week 1":0.10,
+					"October - week 2":0.30,
+					"October - week 3":0.40,
+					"October - week 4":0.40,
+					"October - week 5":0.30,
+					"November - week 1":0.40,
+					"November - week 2":0.40,
+					"November - week 3":0.40,
+					"November - week 4":0.40,
+					"December - week 1":0.70,
+					"December - week 2":0.70,
+					"December - week 3":0.70,
+					"December - week 4":0.70,
+					"December - week 5":0.70
+				},
+				"medium":{
+					"September - week 1":0.10,
+					"September - week 2":0.10,
+					"September - week 3":0.10,
+					"September - week 4":0.10,
+					"September - week 5 or October - week 1":0.10,
+					"October - week 2":0.30,
+					"October - week 3":0.40,
+					"October - week 4":0.40,
+					"October - week 5":0.30,
+					"November - week 1":0.40,
+					"November - week 2":0.40,
+					"November - week 3":0.40,
+					"November - week 4":0.40,
+					"December - week 1":0.40,
+					"December - week 2":0.40,
+					"December - week 3":0.40,
+					"December - week 4":0.40,
+					"December - week 5":0.40
+				},
+				"low"	:{
+					"September - week 1":0.05,
+					"September - week 2":0.05,
+					"September - week 3":0.05,
+					"September - week 4":0.05,
+					"September - week 5 or October - week 1":0.05,
+					"October - week 2":0.05,
+					"October - week 3":0.05,
+					"October - week 4":0.05,
+					"October - week 5":0.05,
+					"November - week 1":0.05,
+					"November - week 2":0.05,
+					"November - week 3":0.05,
+					"November - week 4":0.05,
+					"December - week 1":0.05,
+					"December - week 2":0.05,
+					"December - week 3":0.05,
+					"December - week 4":0.05,
+					"December - week 5":0.05
+				},
+				"default": "I did not fall sick"
+			}
+		},
+
+		"19"	:{
+			"demographic"	: false,
+			"mapped_ora_col": "persons",
+			"question_text"	: "family-members-fell-ill-sept",
+			"question_type"	: "IntegerField",
 			"range"		: {"$ref" : "mapped_ora_col"},
 			"choices"	: null
 		},
 
-		"5"    :{
-
-			"demographic"  : false,
-			"mapped_ora_col": null,
-			"question_text" : "are-you-sick",
-			"question_type" : "MultiChoiceRadioOption",
-			"range"		: null,
-			"choices"	: {
-				    "high":{
-					    "Yes":0.90,
-					    "No" :0.10
-				    },
-				    "medium":{
-					    "Yes":0.50,
-					    "No" :0.50
-				    },
-				    "low"   :{
-					    "Yes":0.10,
-					    "No" :0.90
-				    }
-			}		    
-		},
-
-		"6"	:{
+		"20"	:{
 			"demographic"	: false,
-			"mapped_ora_col": null,
-			"question_text" : "did-you-get-vaccinated",
-			"question_type" : "MultiChoiceRadioOption",
-			"range"         : null,
-			"choices"       : {
-				"high":{
-					"Yes":0.10,
-					"No" :0.10
-				},
-				"medium":{
-					"Yes":0.50,
-					"No" :0.50
-				},
-				"low"	:{
-					"Yes":0.10,
-					"No" :0.90
-				}
-			}
+			"mapped_ora_col": "persons",
+			"question_text"	: "family-members-fell-ill-oct",
+			"question_type"	: "IntegerField",
+			"range"		: {"$ref" : "mapped_ora_col"},
+			"choices"	: null
 		},
-
-		"7"	:{
-			"demographic"	: false,
-			"mapped_ora_col": null,
-			"question_text"	: "did-you-fall-sick-last-three-months",
-			"question_type"	: "MultiChoiceCheckOption",
-			"range"		: null,
-			"choices"	:{
-				"high":{
-					"October" :0.20,
-					"November":0.50,
-					"December":0.70,
-					"I did not fall ill":0.10
-				},
-				"medium":{
-					"October" :0.50,
-					"November":0.50,
-					"December":0.50,
-					"I did not fall ill":0.50
-				},
-				"low":{
-					"October":0.20,
-					"November":0.20,
-					"December":0.20,
-					"I did not fall ill":0.90	
-				},
-				"default":"I did not fall ill"
 				
-			}
+		"21"	:{
+			"demographic"	: false,
+			"mapped_ora_col": "persons",
+			"question_text"	: "family-members-fell-ill-nov",
+			"question_type"	: "IntegerField",
+			"range"		: {"$ref" : "mapped_ora_col"},
+			"choices"	: null
+		},
+
+		"22"	:{
+			"demographic"	: false,
+			"mapped_ora_col": "persons",
+			"question_text"	: "family-members-fell-ill-dec",
+			"question_type"	: "IntegerField",
+			"range"		: {"$ref" : "mapped_ora_col"},
+			"choices"	: null
 		}
+		
 	}	
 }
