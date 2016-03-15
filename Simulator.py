@@ -20,56 +20,89 @@ def get_all_responses(user, sname, dbName, sdata):
 	
 	while curr_q is not 'end':
 		curr_q = str(curr_q)
-
 		question_text = sdata[curr_q]["question_text"]
 		question_type = sdata[curr_q]["question_type"]
     
 		if sdata[curr_q]["demographic"]:
-		    mapped_ora_col = sdata[curr_q]["mapped_ora_col"]
-		    val = getattr(user, mapped_ora_col.upper())
-		    
+		    if sdata[curr_q]["choices"] and type(sdata[curr_q]["choices"]) is list:	#works only for household income
+			hincp = user.HINCP
+			val = sdata[curr_q]["choices"][hincp-1]
+
+		    else:
+			mapped_ora_col = sdata[curr_q]["mapped_ora_col"]
+			val = getattr(user, mapped_ora_col.upper())
+
 		    u_resps.append({question_text : val})
 		    nextq = rt.getNextQuestion(long(curr_q), val)
-		    curr_q = nextq
+
+		    curr_q = nextq		    
 	
 		else:
-		    if "Radio" in question_type:
-			pick = 1
-			ch_probs = sdata[curr_q]["choices"][u_bin]
-			choices = [ch for ch in ch_probs]
-			probs = [ch_probs[ch] for ch in ch_probs]
-			choose = numpy.random.choice(choices, pick, probs)
-			
-			u_resps.append({question_text : choose[0]})
-
-			nextq = rt.getNextQuestion(long(curr_q), choose[0])
+		    if sdata[curr_q]["range"]:
+			try:
+				key = sdata[curr_q]['range']['$ref']
+				mapped_ora_col = sdata[curr_q][key]
+				maxval = getattr(user, mapped_ora_col.upper())
+			except:
+				maxval = sdata[curr_q]['range']
+				
+			val = numpy.random.choice(range(maxval),1) #excluding you
+			u_resps.append({question_text : val})
+			nextq = rt.getNextQuestion(long(curr_q), val)
 			curr_q = nextq
 
-	       
-		    elif "Check" in question_type:
-			chosen = []
-			temp = []
 
-			choices = sdata[curr_q]["choices"][u_bin]
-			probs = numpy.random.uniform(size=(1, len(choices)))
-			samples = probs < choices.values()
-			
-			if numpy.any(samples):  #returns True is any of the elements is True
-			    resp = numpy.choose(numpy.where(samples[0, :]), choices.keys())
-			    for r in range(resp.size):
-				chosen.append((question_text, resp.flat[r]))
-				temp.append(resp.flat[r])
-			else:
-			    chosen.append((question_text, sdata[curr_q]["choices"]["default"]))
-			    temp.append(sdata[curr_q]["choices"]["default"])
+		    else:
+			if "Radio" in question_type:
+				pick = 1
+				ch_probs = sdata[curr_q]["choices"][u_bin]
+				choices = [ch for ch in ch_probs]
+				probs = [ch_probs[ch] for ch in ch_probs]
+				choose = numpy.random.choice(choices, pick, probs)
 
-			u_resps.append(chosen)
-			nextq = rt.getNextQuestion(long(curr_q), temp)
-			curr_q = nextq
-		    
-		    elif "LineTextField" in question_type:
-			u_resps = 'single line or multi-line answers not supported'
-			curr_q = nextq
+				u_resps.append({question_text : choose[0]})
+
+				nextq = rt.getNextQuestion(long(curr_q), choose[0])
+				curr_q = nextq
+
+
+			elif "Check" in question_type:
+				chosen = []
+				temp = []
+
+				choices = sdata[curr_q]["choices"][u_bin]
+				#for key,value in choices.items():
+				#	print key
+				#	print value
+				#	res = numpy.random.choice(['yes','no'],1,[value, 1-value])
+				#	print res[0]
+				#	#if res[0]=='yes':
+				#	#	print value
+				
+
+				probs = numpy.random.uniform(size=(1, len(choices)))
+				samples = probs < choices.values()
+				
+				print probs
+				print choices.values()
+
+				if numpy.any(samples):  #returns True is any of the elements is True
+				    resp = numpy.choose(numpy.where(samples[0, :]), choices.keys())
+				    for r in range(resp.size):
+					chosen.append((question_text, resp.flat[r]))
+					temp.append(resp.flat[r])
+				else:
+				    chosen.append((question_text, sdata[curr_q]["choices"]["default"]))
+				    temp.append(sdata[curr_q]["choices"]["default"])
+				
+				
+				u_resps.append(chosen)
+				nextq = rt.getNextQuestion(long(curr_q), temp)
+				curr_q = nextq
+
+			elif "LineTextField" in question_type:
+				u_resps = 'single line or multi-line answers not supported'
+				curr_q = nextq
 
 
 	return u_resps
@@ -120,11 +153,11 @@ def take_survey(responder, config_file):
 
 		r = s.get(url)
 		httpLog(r)
-                
+               
 		for ans in s_ans:
-                    data = ans
-                    s.post(url, data=data)
-                    httpLog(r)
+                   data = ans
+                   s.post(url, data=data)
+                   httpLog(r)
 
                 
 
