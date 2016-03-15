@@ -26,9 +26,9 @@ class Person:
 	
 	def __str__(self):
 		return "{PID : %s, AGE : %s, SEX : %s, " \
-			"ZIPCODE : %s, BIN : %s}" %(
+				"HINCP : %s, PERSONS : %s, BIN : %s}" %(
 			str(self.PID), str(self.AGEP), 
-			self.SEX,str(self.HOME_ZIPCODE),self.BIN) 
+			self.SEX, str(self.HINCP), str(self.PERSONS), self.BIN) 
 
 
 def get_person_info_all():
