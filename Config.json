@@ -1,9 +1,9 @@
 {
 	"metadata" : {
-		"sname" : "USA Disease Prevalence October Fall 2015",
-		"surl"  : "https://epics.vbi.vt.edu/wisdm_analytics/usaDiseasePrevalence/",
+		"sname" : <survey_name>,
+		"surl"  : <survey_url,
 		"sid"   : "",
-		"sdb"	: "wisdmdev"
+		"sdb"	: <survey_db_instance>
 	},
 
 	"sdata"	: {
